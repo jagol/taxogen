@@ -41,7 +41,7 @@ def rank_phrase(case_file):
 	unif = [1.0 / cell_cnt] * cell_cnt
 
 	for ph in phrase_map:
-		ph_vec = [x[1] for x in phrase_map[ph].iteritems()]
+		ph_vec = [x[1] for x in phrase_map[ph].items()]
 		if len(ph_vec) < cell_cnt:
 			ph_vec += [0] * (cell_cnt - len(ph_vec))
 		# smoothing
@@ -49,7 +49,7 @@ def rank_phrase(case_file):
 		ph_vec = utils.l1_normalize(ph_vec)
 		ph_dist_map[ph] = utils.kl_divergence(ph_vec, unif)
 
-	ranked_list = sorted(ph_dist_map.items(), key=operator.itemgetter(1), reverse=True)
+	ranked_list = sorted(list(ph_dist_map.items()), key=operator.itemgetter(1), reverse=True)
 	
 	return ranked_list
 

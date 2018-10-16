@@ -4,12 +4,12 @@ corpusName=dblp
 ## Name of the taxonomy
 taxonName=our-l3-0.25
 ## If need preprocessing from raw input, set it to be 1, otherwise, set 0
-FIRST_RUN=${FIRST_RUN:- 0}
+FIRST_RUN=${FIRST_RUN:- 1}
 
 if [ $FIRST_RUN -eq 1 ]; then
 	echo 'Start data preprocessing'
 	## compile word2vec for embedding learning
-	gcc word2vec.c -o word2veec -lm -pthread -O2 -Wall -funroll-loops -Wno-unused-result
+	gcc word2vec.c -o word2vec -lm -pthread -O2 -Wall -funroll-loops -Wno-unused-result
 
 	## create initial folder if not exist
 	if [ ! -d ../data/$corpusName/init ]; then
@@ -32,7 +32,7 @@ if [ ! -d ../data/$corpusName/$taxonName ]; then
 fi
 
 echo 'Start TaxonGen'
-python main.py
+python3 main.py
 
 echo 'Generate compressed taxonomy'
 if [ ! -d ../data/$corpusName/taxonomies ]; then
